@@ -1198,7 +1198,7 @@ calcular()
 
 .app {
 
-  max-width: 1100px;
+  max-width: 100vw;
 
   margin: 0 auto;
 
