@@ -1204,8 +1204,6 @@ calcular()
 
   margin: 0 auto;
 
-  padding: 24px;
-
   font-family:
     Inter,
     system-ui,
@@ -1221,9 +1219,9 @@ calcular()
 .app-inner-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  row-gap: 25px;
+  row-gap: 50px;
 }
 
 .header {
@@ -1255,15 +1253,13 @@ calcular()
    ============================================================ */
 
 .panel {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 20px;
-
   border: 1px solid #e5e7eb;
-
   border-radius: 12px;
-
   background: white;
-
 }
 
 .panel h2 {
@@ -1387,9 +1383,8 @@ button:hover {
    ============================================================ */
 
 .equilibrium {
-
   display: flex;
-
+  justify-content: center;
   gap: 48px;
 
 }
