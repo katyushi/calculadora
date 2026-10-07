@@ -157,11 +157,11 @@ code {
 }
 
 #app {
-  display: flex!;
-  flex-direction: column!;
-  justify-content: center!;
-  align-items: center!;
-  max-width: 99vw!;
+  display: flex!important;
+  flex-direction: column!important;
+  justify-content: center!important;
+  align-items: center!important;
+  max-width: 99vw!important;
   text-align: center;
   border-inline: 1px solid var(--border);
   min-height: 100svh;
