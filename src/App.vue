@@ -762,427 +762,429 @@ calcular()
 <template>
 
   <main class="app">
-
-    <header class="header">
-
-      <h1>Oferta e Demanda</h1>
-
-      <p>
-        Calculadora gráfica de equilíbrio de mercado
-      </p>
-
-    </header>
-
-    <!-- ======================================================
-         ENTRADAS
-         ====================================================== -->
-
-    <section class="panel">
-
-      <h2>Funções do mercado</h2>
-
-      <div class="inputs">
-
-        <label>
-
-          <span>Demanda — QD</span>
-
-          <input
-            v-model="demandaInput"
-            type="text"
-            spellcheck="false"
-            @keyup.enter="calcular"
-          >
-
-        </label>
-
-        <label>
-
-          <span>Oferta — QS</span>
-
-          <input
-            v-model="ofertaInput"
-            type="text"
-            spellcheck="false"
-            @keyup.enter="calcular"
-          >
-
-        </label>
-
-      </div>
-
-      <div class="equilibrium-toggle">
-
-        <label class="checkbox">
-
-          <input
-            v-model="equilibrioManual"
-            type="checkbox"
-          >
-
-          <span>
-            Informar equilíbrio manualmente
-          </span>
-
-        </label>
-
-      </div>
-
-      <div
-        v-if="equilibrioManual"
-        class="inputs"
-      >
-
-        <label>
-
-          <span>Preço de equilíbrio — P</span>
-
-          <input
-            v-model="precoEquilibrioInput"
-            type="number"
-            step="any"
-          >
-
-        </label>
-
-        <label>
-
-          <span>Quantidade de equilíbrio — Q</span>
-
-          <input
-            v-model="quantidadeEquilibrioInput"
-            type="number"
-            step="any"
-          >
-
-        </label>
-
-      </div>
-
-      <button
-        type="button"
-        @click="calcular"
-      >
-
-        Calcular
-
-      </button>
-
-      <p
-        v-if="erro"
-        class="error"
-      >
-
-        {{ erro }}
-
-      </p>
-
-    </section>
-
-    <!-- ======================================================
-         EQUILÍBRIO
-         ====================================================== -->
-
-    <section
-      v-if="equilibrio"
-      class="panel"
-    >
-
-      <h2>Equilíbrio</h2>
-
-      <div class="equilibrium">
-
-        <div>
-
-          <span>Preço</span>
-
-          <strong>
-            P = {{ formatNumber(equilibrio.P) }}
-          </strong>
-
+    <div class="app-inner-container">
+      <header class="header">
+  
+        <h1>Oferta e Demanda</h1>
+  
+        <p>
+          Calculadora gráfica de equilíbrio de mercado
+        </p>
+  
+      </header>
+  
+      <!-- ======================================================
+           ENTRADAS
+           ====================================================== -->
+  
+      <section class="panel">
+  
+        <h2>Funções do mercado</h2>
+  
+        <div class="inputs">
+  
+          <label>
+  
+            <span>Demanda — QD</span>
+  
+            <input
+              v-model="demandaInput"
+              type="text"
+              spellcheck="false"
+              @keyup.enter="calcular"
+            >
+  
+          </label>
+  
+          <label>
+  
+            <span>Oferta — QS</span>
+  
+            <input
+              v-model="ofertaInput"
+              type="text"
+              spellcheck="false"
+              @keyup.enter="calcular"
+            >
+  
+          </label>
+  
         </div>
-
-        <div>
-
-          <span>Quantidade</span>
-
-          <strong>
-            Q = {{ formatNumber(equilibrio.Q) }}
-          </strong>
-
+  
+        <div class="equilibrium-toggle">
+  
+          <label class="checkbox">
+  
+            <input
+              v-model="equilibrioManual"
+              type="checkbox"
+            >
+  
+            <span>
+              Informar equilíbrio manualmente
+            </span>
+  
+          </label>
+  
         </div>
-
-      </div>
-
-    </section>
-
-    <!-- ======================================================
-         FÓRMULAS PARA CALCULADORA GRÁFICA
-         ====================================================== -->
-
-    <section class="panel">
-
-      <h2>Fórmulas para calculadora gráfica</h2>
-
-      <div class="formula">
-
-        <span>Demanda</span>
-
-        <code>
-          y = {{ formulaDemandaGrafico }}
-        </code>
-
-      </div>
-
-      <div class="formula">
-
-        <span>Oferta</span>
-
-        <code>
-          y = {{ formulaOfertaGrafico }}
-        </code>
-
-      </div>
-
-    </section>
-
-    <!-- ======================================================
-         GRÁFICO
-         ====================================================== -->
-
-    <section class="panel graph-panel">
-
-      <h2>Gráfico</h2>
-
-      <div class="graph-wrapper">
-
-        <svg
-          :viewBox="`0 0 ${graphWidth} ${graphHeight}`"
-          class="graph"
-          role="img"
-          aria-label="Gráfico de oferta e demanda"
+  
+        <div
+          v-if="equilibrioManual"
+          class="inputs"
         >
-
-          <!-- Grade vertical -->
-
-          <g class="grid">
-
+  
+          <label>
+  
+            <span>Preço de equilíbrio — P</span>
+  
+            <input
+              v-model="precoEquilibrioInput"
+              type="number"
+              step="any"
+            >
+  
+          </label>
+  
+          <label>
+  
+            <span>Quantidade de equilíbrio — Q</span>
+  
+            <input
+              v-model="quantidadeEquilibrioInput"
+              type="number"
+              step="any"
+            >
+  
+          </label>
+  
+        </div>
+  
+        <button
+          type="button"
+          @click="calcular"
+        >
+  
+          Calcular
+  
+        </button>
+  
+        <p
+          v-if="erro"
+          class="error"
+        >
+  
+          {{ erro }}
+  
+        </p>
+  
+      </section>
+  
+      <!-- ======================================================
+           EQUILÍBRIO
+           ====================================================== -->
+  
+      <section
+        v-if="equilibrio"
+        class="panel"
+      >
+  
+        <h2>Equilíbrio</h2>
+  
+        <div class="equilibrium">
+  
+          <div>
+  
+            <span>Preço</span>
+  
+            <strong>
+              P = {{ formatNumber(equilibrio.P) }}
+            </strong>
+  
+          </div>
+  
+          <div>
+  
+            <span>Quantidade</span>
+  
+            <strong>
+              Q = {{ formatNumber(equilibrio.Q) }}
+            </strong>
+  
+          </div>
+  
+        </div>
+  
+      </section>
+  
+      <!-- ======================================================
+           FÓRMULAS PARA CALCULADORA GRÁFICA
+           ====================================================== -->
+  
+      <section class="panel">
+  
+        <h2>Fórmulas para calculadora gráfica</h2>
+  
+        <div class="formula">
+  
+          <span>Demanda</span>
+  
+          <code>
+            y = {{ formulaDemandaGrafico }}
+          </code>
+  
+        </div>
+  
+        <div class="formula">
+  
+          <span>Oferta</span>
+  
+          <code>
+            y = {{ formulaOfertaGrafico }}
+          </code>
+  
+        </div>
+  
+      </section>
+  
+      <!-- ======================================================
+           GRÁFICO
+           ====================================================== -->
+  
+      <section class="panel graph-panel">
+  
+        <h2>Gráfico</h2>
+  
+        <div class="graph-wrapper">
+  
+          <svg
+            :viewBox="`0 0 ${graphWidth} ${graphHeight}`"
+            class="graph"
+            role="img"
+            aria-label="Gráfico de oferta e demanda"
+          >
+  
+            <!-- Grade vertical -->
+  
+            <g class="grid">
+  
+              <line
+                v-for="q in xTicks"
+                :key="`x-${q}`"
+                :x1="xPixel(q)"
+                :x2="xPixel(q)"
+                :y1="padding.top"
+                :y2="graphHeight - padding.bottom"
+              />
+  
+            </g>
+  
+            <!-- Grade horizontal -->
+  
+            <g class="grid">
+  
+              <line
+                v-for="p in yTicks"
+                :key="`y-${p}`"
+                :x1="padding.left"
+                :x2="graphWidth - padding.right"
+                :y1="yPixel(p)"
+                :y2="yPixel(p)"
+              />
+  
+            </g>
+  
+            <!-- Eixos -->
+  
             <line
-              v-for="q in xTicks"
-              :key="`x-${q}`"
-              :x1="xPixel(q)"
-              :x2="xPixel(q)"
+              class="axis"
+              :x1="padding.left"
+              :x2="graphWidth - padding.right"
+              :y1="graphHeight - padding.bottom"
+              :y2="graphHeight - padding.bottom"
+            />
+  
+            <line
+              class="axis"
+              :x1="padding.left"
+              :x2="padding.left"
               :y1="padding.top"
               :y2="graphHeight - padding.bottom"
             />
-
-          </g>
-
-          <!-- Grade horizontal -->
-
-          <g class="grid">
-
-            <line
-              v-for="p in yTicks"
-              :key="`y-${p}`"
-              :x1="padding.left"
-              :x2="graphWidth - padding.right"
-              :y1="yPixel(p)"
-              :y2="yPixel(p)"
+  
+            <!-- Demanda -->
+  
+            <path
+              v-if="pathDemanda"
+              :d="pathDemanda"
+              class="demand-line"
+              fill="none"
             />
-
-          </g>
-
-          <!-- Eixos -->
-
-          <line
-            class="axis"
-            :x1="padding.left"
-            :x2="graphWidth - padding.right"
-            :y1="graphHeight - padding.bottom"
-            :y2="graphHeight - padding.bottom"
-          />
-
-          <line
-            class="axis"
-            :x1="padding.left"
-            :x2="padding.left"
-            :y1="padding.top"
-            :y2="graphHeight - padding.bottom"
-          />
-
-          <!-- Demanda -->
-
-          <path
-            v-if="pathDemanda"
-            :d="pathDemanda"
-            class="demand-line"
-            fill="none"
-          />
-
-          <!-- Oferta -->
-
-          <path
-            v-if="pathOferta"
-            :d="pathOferta"
-            class="supply-line"
-            fill="none"
-          />
-
-          <!-- Linha vertical do equilíbrio -->
-
-          <line
-            v-if="equilibrio"
-            class="equilibrium-line"
-            :x1="equilibrioX"
-            :x2="equilibrioX"
-            :y1="equilibrioY"
-            :y2="graphHeight - padding.bottom"
-          />
-
-          <!-- Linha horizontal do equilíbrio -->
-
-          <line
-            v-if="equilibrio"
-            class="equilibrium-line"
-            :x1="padding.left"
-            :x2="equilibrioX"
-            :y1="equilibrioY"
-            :y2="equilibrioY"
-          />
-
-          <!-- Ponto de equilíbrio -->
-
-          <circle
-            v-if="equilibrio"
-            :cx="equilibrioX"
-            :cy="equilibrioY"
-            r="7"
-            class="equilibrium-point"
-          />
-
-          <!-- Labels eixo X -->
-
-          <g class="labels">
-
+  
+            <!-- Oferta -->
+  
+            <path
+              v-if="pathOferta"
+              :d="pathOferta"
+              class="supply-line"
+              fill="none"
+            />
+  
+            <!-- Linha vertical do equilíbrio -->
+  
+            <line
+              v-if="equilibrio"
+              class="equilibrium-line"
+              :x1="equilibrioX"
+              :x2="equilibrioX"
+              :y1="equilibrioY"
+              :y2="graphHeight - padding.bottom"
+            />
+  
+            <!-- Linha horizontal do equilíbrio -->
+  
+            <line
+              v-if="equilibrio"
+              class="equilibrium-line"
+              :x1="padding.left"
+              :x2="equilibrioX"
+              :y1="equilibrioY"
+              :y2="equilibrioY"
+            />
+  
+            <!-- Ponto de equilíbrio -->
+  
+            <circle
+              v-if="equilibrio"
+              :cx="equilibrioX"
+              :cy="equilibrioY"
+              r="7"
+              class="equilibrium-point"
+            />
+  
+            <!-- Labels eixo X -->
+  
+            <g class="labels">
+  
+              <text
+                v-for="q in xTicks"
+                :key="`xl-${q}`"
+                :x="xPixel(q)"
+                :y="graphHeight - padding.bottom + 25"
+                text-anchor="middle"
+              >
+  
+                {{ formatNumber(q) }}
+  
+              </text>
+  
+            </g>
+  
+            <!-- Labels eixo Y -->
+  
+            <g class="labels">
+  
+              <text
+                v-for="p in yTicks"
+                :key="`yl-${p}`"
+                :x="padding.left - 10"
+                :y="yPixel(p) + 4"
+                text-anchor="end"
+              >
+  
+                {{ formatNumber(p) }}
+  
+              </text>
+  
+            </g>
+  
+            <!-- Títulos dos eixos -->
+  
             <text
-              v-for="q in xTicks"
-              :key="`xl-${q}`"
-              :x="xPixel(q)"
-              :y="graphHeight - padding.bottom + 25"
+              class="axis-title"
+              :x="graphWidth / 2"
+              :y="graphHeight - 10"
               text-anchor="middle"
             >
-
-              {{ formatNumber(q) }}
-
+  
+              Quantidade (Q)
+  
             </text>
-
-          </g>
-
-          <!-- Labels eixo Y -->
-
-          <g class="labels">
-
+  
             <text
-              v-for="p in yTicks"
-              :key="`yl-${p}`"
-              :x="padding.left - 10"
-              :y="yPixel(p) + 4"
-              text-anchor="end"
+              class="axis-title"
+              :x="18"
+              :y="graphHeight / 2"
+              text-anchor="middle"
+              transform="rotate(-90 18 250)"
             >
-
-              {{ formatNumber(p) }}
-
+  
+              Preço (P)
+  
             </text>
-
-          </g>
-
-          <!-- Títulos dos eixos -->
-
-          <text
-            class="axis-title"
-            :x="graphWidth / 2"
-            :y="graphHeight - 10"
-            text-anchor="middle"
-          >
-
-            Quantidade (Q)
-
-          </text>
-
-          <text
-            class="axis-title"
-            :x="18"
-            :y="graphHeight / 2"
-            text-anchor="middle"
-            transform="rotate(-90 18 250)"
-          >
-
-            Preço (P)
-
-          </text>
-
-          <!-- Texto do equilíbrio -->
-
-          <text
-            v-if="equilibrio"
-            class="equilibrium-label"
-            :x="equilibrioX + 12"
-            :y="equilibrioY - 12"
-          >
-
-            ({{ formatNumber(equilibrio.Q) }},
-            {{ formatNumber(equilibrio.P) }})
-
-          </text>
-
-        </svg>
-
-      </div>
-
-      <!-- Salvar gráfico -->
-
-      <button
-        type="button"
-        class="save-graph-button"
-        @click="salvarGrafico"
-      >
-
-        Salvar gráfico na galeria
-
-      </button>
-
-      <!-- Legenda -->
-
-      <div class="legend">
-
-        <div>
-
-          <span class="legend-line demand" />
-
-          Demanda
-
+  
+            <!-- Texto do equilíbrio -->
+  
+            <text
+              v-if="equilibrio"
+              class="equilibrium-label"
+              :x="equilibrioX + 12"
+              :y="equilibrioY - 12"
+            >
+  
+              ({{ formatNumber(equilibrio.Q) }},
+              {{ formatNumber(equilibrio.P) }})
+  
+            </text>
+  
+          </svg>
+  
         </div>
-
-        <div>
-
-          <span class="legend-line supply" />
-
-          Oferta
-
+  
+        <!-- Salvar gráfico -->
+  
+        <button
+          type="button"
+          class="save-graph-button"
+          @click="salvarGrafico"
+        >
+  
+          Salvar gráfico na galeria
+  
+        </button>
+  
+        <!-- Legenda -->
+  
+        <div class="legend">
+  
+          <div>
+  
+            <span class="legend-line demand" />
+  
+            Demanda
+  
+          </div>
+  
+          <div>
+  
+            <span class="legend-line supply" />
+  
+            Oferta
+  
+          </div>
+  
+          <div>
+  
+            <span class="legend-point" />
+  
+            Equilíbrio
+  
+          </div>
+  
         </div>
+  
+      </section>
+    </div>
 
-        <div>
-
-          <span class="legend-point" />
-
-          Equilíbrio
-
-        </div>
-
-      </div>
-
-    </section>
 
   </main>
 
@@ -1216,6 +1218,14 @@ calcular()
 
 }
 
+.app-inner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 25px;
+}
+
 .header {
 
   margin-bottom: 24px;
@@ -1245,8 +1255,6 @@ calcular()
    ============================================================ */
 
 .panel {
-
-  margin-bottom: 20px;
 
   padding: 20px;
 
